@@ -12,13 +12,41 @@
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
   {% block css %}
     <style>
-      
+    .dropdown-content{
+      width: max-content !important;
+      height:auto !important;
+    }
+    nav .brand-logo {
+      left: 10%;
+    }
+
+    @media ( max-width: 767px ) {
+      nav .brand-logo {left: 50%;}
+      .hide-on-sm-and-down { display: none; }
+    }
     </style>
   {% endblock css %}
 </head>
 
 <body>
-
+  <ul id="accountDropdown" class="dropdown-content">
+    <li><a href="{% url 'password_change' %}"><i class="material-icons left">settings</i>Settings</a></li>
+    <li><a href="{% url 'logout' %}"><i class="material-icons left">exit_to_app</i>Logout</a></li>
+  </ul>
+  <nav>
+    <div class="nav-wrapper indigo">
+      <div class="container">
+        <a href="/" class="brand-logo">CMOD</a>
+        <ul class="right hide-on-sm-and-down">
+          <li><a href="/">Overview</a></li>
+          <li><a href="badges.html">Candidates</a></li>
+          <li><a href="badges.html">Reminders</a></li>
+          <!-- Dropdown Trigger -->
+          <li><a class="dropdown-trigger" href="#!" data-activates="accountDropdown">Account<i class="material-icons right">arrow_drop_down</i></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
   {% block content %}
 
   {% endblock content %}
@@ -27,6 +55,13 @@
 
   {% block javascript %}
   <script type="text/javascript">
+    $( document ).ready(function() {
+      $(".dropdown-trigger").dropdown({hover: true})
+      $(".dropdown-trigger").hover(function(){
+        $("#"+$(this).attr("data-activates")).css({'top':'64px'})
+      });
+      $('.sidenav').sideNav();
+    });
     $.ajaxSetup({
       beforeSend: function(xhr, settings) {
           if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
