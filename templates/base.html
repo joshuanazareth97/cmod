@@ -1,0 +1,61 @@
+{% load static %}
+{% csrf_token %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CMOD | Home</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+  {% block css %}
+    <style>
+      
+    </style>
+  {% endblock css %}
+</head>
+
+<body>
+
+  {% block content %}
+
+  {% endblock content %}
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+
+  {% block javascript %}
+  <script type="text/javascript">
+    $.ajaxSetup({
+      beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+          }
+      }
+    });
+
+    function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          var cookies = document.cookie.split(';');
+          for (var i = 0; i < cookies.length; i++) {
+              var cookie = jQuery.trim(cookies[i]);
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+    }
+
+    function csrfSafeMethod(method) {
+      // these HTTP methods do not require CSRF protection
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+  </script>
+  {% endblock javascript %}
+
+</body>
+</html>
