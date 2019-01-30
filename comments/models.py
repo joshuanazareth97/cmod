@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
+def gen_doc_filepath(instance, filename):
+    return f"{self.candidate.id}\\{filename}"
 
 class Candidate(models.Model):
     name = models.CharField(max_length=200)
@@ -25,9 +27,10 @@ class Document(models.Model):
     title = models.CharField(max_length=140)
     candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE, related_name="candidate_documents")
     uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_documents")
-    file = models.FileField(upload_to=lambda instance, filename: f"{instance.candidate.id}/{filename}")
+    file = models.FileField(upload_to=gen_doc_filepath)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+
 
 class Reminder(models.Model):
     title = models.CharField(max_length=140)
