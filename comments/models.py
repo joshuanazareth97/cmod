@@ -15,7 +15,7 @@ class Comment(models.Model):
         ('BR', 'Briefing'),
         ('EV', 'Evaluation')
     )
-    type = models.CharField(max_length="2", choices = type_choices, default="NT")
+    type = models.CharField(max_length=2, choices = type_choices, default="NT")
     candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE, related_name="comments")
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
     created = models.DateTimeField(auto_now_add=True)
