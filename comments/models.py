@@ -6,6 +6,7 @@ def gen_doc_filepath(instance, filename):
 
 class Candidate(models.Model):
     name = models.CharField(max_length=200)
+    cid = models.CharField(max_length=20)
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="Candidates")
     designation = models.CharField(max_length=50, default="N/A")
 
