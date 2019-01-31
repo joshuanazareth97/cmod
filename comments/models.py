@@ -18,6 +18,7 @@ class Comment(models.Model):
         ('EV', 'Evaluation')
     )
     type = models.CharField(max_length=2, choices = type_choices, default="NT")
+    starred = models.BooleanField(default=False)
     candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE, related_name="candidate_comments")
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_comments")
     created = models.DateTimeField(auto_now_add=True)
@@ -26,8 +27,9 @@ class Comment(models.Model):
 class Document(models.Model):
     title = models.CharField(max_length=140)
     candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE, related_name="candidate_documents")
-    uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_documents")
     file = models.FileField(upload_to=gen_doc_filepath)
+    starred = models.BooleanField(default=True)
+    uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_documents")
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
@@ -36,6 +38,6 @@ class Reminder(models.Model):
     title = models.CharField(max_length=140)
     candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE, related_name="candidate_reminders")
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_reminders")
-    due_date = models.DateField
+    due_date = models.DateField()
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
