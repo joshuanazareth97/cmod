@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 def gen_doc_filepath(instance, filename):
-    return f"{self.candidate.id}\\{filename}"
+    return f"{self.candidate.cid}\\{filename}"
 
 class Candidate(models.Model):
     name = models.CharField(max_length=200)
