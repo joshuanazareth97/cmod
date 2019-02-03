@@ -16,9 +16,16 @@
       width: max-content !important;
       height:auto !important;
     }
-    nav .brand-logo {
-      left: 10%;
+    .dropdown-content li b {
+      color: #3f51b5;
+      line-height: 22px;
+      font-size: 16px;
+      vertical-align: middle;
     }
+    .dropdown-content li a {
+      color: #3f51b5;
+    }
+
 
     @media ( max-width: 767px ) {
       nav .brand-logo {left: 50%;}
@@ -30,6 +37,7 @@
 
 <body>
   <ul id="accountDropdown" class="dropdown-content">
+    <li><b>{{user.first_name}}</b></li>
     <li><a href="{% url 'password_change' %}"><i class="material-icons left">settings</i>Settings</a></li>
     <li><a href="{% url 'logout' %}"><i class="material-icons left">exit_to_app</i>Logout</a></li>
   </ul>
@@ -39,7 +47,7 @@
         <a href="/" class="brand-logo">CMOD</a>
         <ul class="right hide-on-sm-and-down">
           <li><a href="/">Overview</a></li>
-          <li><a href="badges.html">Candidates</a></li>
+          <li><a href="{% url 'all_candidates' %}">Candidates</a></li>
           <li><a href="badges.html">Reminders</a></li>
           <!-- Dropdown Trigger -->
           <li><a class="dropdown-trigger" href="#!" data-activates="accountDropdown">Account<i class="material-icons right">arrow_drop_down</i></a></li>
@@ -51,7 +59,7 @@
 
   {% endblock content %}
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 
   {% block javascript %}
   <script type="text/javascript">
