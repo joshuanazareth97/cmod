@@ -1,6 +1,15 @@
+{% load widget_tweaks %}
+
 <div class="modal-content">
   <h4>Create Candidate</h4>
-
+  {% for field in form %}
+    <div class="input-field col s12">
+      {# <input id ="name" type="text" class="validate {% if field.errors %}invalid{% endif %}"> #}
+      {% render_field  field class="form_input validate"|add_error_class:"invalid" %}
+      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {# <span class="helper-text" data-error="wrong">Helper text</span> #}
+    </div>
+  {% endfor %}
 <div class="modal-footer">
   <a class="btn-flat submit">Submit</a>
   <a class="modal-close btn-flat">Close</a>
