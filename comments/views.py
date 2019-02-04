@@ -2,6 +2,8 @@ from django.http import HttpResponse, JsonResponse
 from django.template.loader import render_to_string
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
+
 from .models import Candidate
 from .forms import CandidateForm
 # Create your views here.
@@ -27,10 +29,15 @@ def all_candidates(request):
 
 @login_required
 def create_candidate(request):
-    form = CandidateForm()
-    context = {
-        "form": form
-    }
-    html_form = render_to_string("candidates/includes/create_form.html", context, request)
-    print("form requested")
-    return JsonResponse ({"html_form":html_form})
+    if request.is_ajax():
+        if request.method == "POST":
+            print("Form submitted")
+        else:
+            form = CandidateForm()
+            context = {
+                "form": form
+            }
+            html_form = render_to_string("candidates/includes/create_form.html", context, request)
+            return JsonResponse ({"html_form":html_form})
+    else:
+        raise PermissionDenied("Cannot access this endpoint in this manner.")
