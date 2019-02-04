@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block css %}
+{{ block.super }}
 <style media="screen">
   .collection-item.empty {
     text-align: center;
@@ -8,12 +9,15 @@
   .modal-footer a:hover {
     color: #3f51b5;
   }
+  #form-modal .form_input {
+    padding-left: 10px;
+  }
 </style>
 {% endblock css %}
 
 {% block content %}
   <div id="form-modal" class="modal">
-    
+
   </div>
   <div class="container row">
     <ul class="collection col s12" id="candidate-list">
@@ -37,10 +41,11 @@
 {% endblock content %}
 
 {% block javascript %}
+  {{ block.super }}
   <script type="text/javascript">
     $(function () {
-      var elem= document.querySelector('.modal');
-      var modal_instance = M.Modal.init(elem);
+      var modal_elem= document.querySelector('.modal');
+      var modal_instance = M.Modal.init(modal_elem);
       $("#btn-create-form").click(function() {
         $.ajax({
           url: '/candidates/create',
@@ -52,6 +57,19 @@
             modal_instance.open()
           }
         });
+      });
+      $("#form-modal").on('submit', "#create-candidate-form", function(event) {
+        var form =  $(this)
+        $.ajax({
+          url: form.attr('action'),
+          method: form.attr('method'),
+          datatype: 'json',
+          data: form.serialize(),
+          success: function(data) {
+            console.log("Form received")  
+          }
+        })
+        event.preventDefault()
       });
     });
   </script>
