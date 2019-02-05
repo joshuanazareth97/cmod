@@ -21,16 +21,7 @@
   </div>
   <div class="container row">
     <ul class="collection col s12" id="candidate-list">
-      {% for candidate in candidates %}
-        <li class="collection-item">
-          <span class="title">{{candidate.name}}</span>
-          <p>{{candidate.cid}}</p>
-        </li>
-      {% empty %}
-        <li class="collection-item empty">
-          <p>Looks like you have no candidates! Create a new candidate to begin.</p>
-        </li>
-      {% endfor %}
+      
     </ul>
     <div class="fixed-action-btn" id="btn-create-form">
       <a class="btn-floating btn-large red" href="#form-modal">
@@ -66,9 +57,11 @@
           datatype: 'json',
           data: form.serialize(),
           success: function(data) {
-            console.log("Form received")  
+            if(data.is_valid) {
+              modal_instance.close()
+            }
           }
-        })
+        }); //End Ajax call
         event.preventDefault()
       });
     });

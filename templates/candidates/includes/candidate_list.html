@@ -1,0 +1,10 @@
+{% for candidate in candidates %}
+  <li class="collection-item">
+    <span class="title">{{candidate.name}}</span>
+    <p>{{candidate.cid}}</p>
+  </li>
+{% empty %}
+  <li class="collection-item empty">
+    <p>Looks like you have no candidates! Create a new candidate to begin.</p>
+  </li>
+{% endfor %}
