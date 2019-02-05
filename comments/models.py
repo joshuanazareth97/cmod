@@ -10,6 +10,9 @@ class Candidate(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="Candidates")
     designation = models.CharField(max_length=50, default="N/A")
 
+    def __str__(self):
+        return f"{self.name} [{self.cid}]"
+
 class Comment(models.Model):
     title = models.CharField(max_length=140)
     text = models.CharField(max_length=1000)
