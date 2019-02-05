@@ -30,14 +30,22 @@ def all_candidates(request):
 @login_required
 def create_candidate(request):
     if request.is_ajax():
+        data = {}
         if request.method == "POST":
-            print("Form submitted")
+            form = CandidateForm(request.POST)
+            if form.is_valid():
+                candidate = form.save(commit=False)
+                candidate.creator = request.user
+                candidate.save()
+                data["success"] = True
+            else:
+                data["success"] = False
         else:
             form = CandidateForm()
-            context = {
-                "form": form
-            }
-            html_form = render_to_string("candidates/includes/create_form.html", context, request)
-            return JsonResponse ({"html_form":html_form})
+        context = {
+            "form": form
+        }
+        data["html_form"] = render_to_string("candidates/includes/create_form.html", context, request)
+        return JsonResponse(data)
     else:
         raise PermissionDenied("Cannot access this endpoint in this manner.")
