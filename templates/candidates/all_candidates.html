@@ -60,6 +60,9 @@
             if(data.is_valid) {
               modal_instance.close()
             }
+            else {
+              $("#form-modal").html(data.html_form)
+            }
           }
         }); //End Ajax call
         event.preventDefault()
