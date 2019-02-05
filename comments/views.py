@@ -21,7 +21,7 @@ def all_candidates(request):
     candidate = Candidate.objects.filter(creator=request.user)
     context = {
         "user": request.user,
-        "candidates": Candidate.objects.filter(creator=request.user)
+        "candidates": Candidate.objects.filter(creator=request.user).order_by("name")
 
     }
     print(context["candidates"])
@@ -37,9 +37,9 @@ def create_candidate(request):
                 candidate = form.save(commit=False)
                 candidate.creator = request.user
                 candidate.save()
-                data["success"] = True
+                data["is_valid"] = True
             else:
-                data["success"] = False
+                data["is_valid"] = False
         else:
             form = CandidateForm()
         context = {
