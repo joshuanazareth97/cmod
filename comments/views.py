@@ -38,8 +38,8 @@ def create_candidate(request):
                 candidate.creator = request.user
                 candidate.save()
                 data["is_valid"] = True
+                candidates = Candidate.objects.filter(creator=request.user).order_by("name")
                 data["html_candidate_list"] = render_to_string("candidates/includes/candidate_list.html",{"candidates":candidates})
-                print(data["html_candidate_list"])
             else:
                 data["is_valid"] = False
         else: #GET request
