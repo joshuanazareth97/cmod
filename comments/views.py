@@ -1,6 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 from django.template.loader import render_to_string
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 
@@ -48,3 +48,8 @@ def create_candidate(request):
         return JsonResponse(data)
     else:
         raise PermissionDenied("Cannot access this endpoint in this manner.")
+
+@login_required
+def edit_candidate(request, cid):
+    candidate = get_object_or_404(Candidate, cid=cid, creator=request.user)
+    return HttpResponse(f"<h3>CID: {cid} <br /> {candidate.name}</h3>")
