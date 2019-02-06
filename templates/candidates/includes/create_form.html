@@ -1,6 +1,7 @@
 {% load widget_tweaks %}
 
-<form action="{% url 'create_candidate' %}" id="create-candidate-form" method="post">
+<form action="{% url 'create_candidate' %}" id="js-candidate-create-form" method="post">
+  {% csrf_token %}
   <div class="modal-content">
     <h4>Create Candidate</h4>
     {% for field in form %}
