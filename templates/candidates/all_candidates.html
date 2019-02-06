@@ -12,6 +12,9 @@
   #form-modal .form_input {
     padding-left: 10px;
   }
+  .collection-item .secondary-content {
+    padding-top: 15px;
+  }
 </style>
 {% endblock css %}
 
@@ -58,6 +61,7 @@
           data: form.serialize(),
           success: function(data) {
             if(data.is_valid) {
+              $("#candidate-list").html(data.html_candidate_list)
               modal_instance.close()
             }
             else {
