@@ -44,7 +44,8 @@
     $(function () {
       var modal_elem= document.querySelector('.modal');
       var modal_instance = M.Modal.init(modal_elem);
-      $("#js-candidate-create-btn").click(function() {
+      //generic function to load candidate form
+      var loadCandidateForm = function() {
         $.ajax({
           url: $(this).attr("data-url"),
           method: 'get',
@@ -55,7 +56,8 @@
             modal_instance.open()
           }
         });
-      });
+      }
+      $("#js-candidate-create-btn").click(loadCandidateForm);
       $("#form-modal").on('submit', "#js-candidate-create-form", function(event) {
         event.preventDefault();
         var form =  $(this)
