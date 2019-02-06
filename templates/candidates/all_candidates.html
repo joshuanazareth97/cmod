@@ -30,7 +30,7 @@
     <ul class="collection col s12" id="candidate-list">
       {% include "candidates/includes/candidate_list.html" %}
     </ul>
-    <div class="fixed-action-btn" id="btn-create-form">
+    <div class="fixed-action-btn" id="js-candidate-create-btn" data-url="{% url 'create_candidate' %}">
       <a class="btn-floating btn-large red" href="#form-modal">
         <i class="large material-icons">add</i>
       </a>
@@ -44,9 +44,9 @@
     $(function () {
       var modal_elem= document.querySelector('.modal');
       var modal_instance = M.Modal.init(modal_elem);
-      $("#btn-create-form").click(function() {
+      $("#js-candidate-create-btn").click(function() {
         $.ajax({
-          url: '/candidates/create',
+          url: $(this).attr("data-url"),
           method: 'get',
           datatype: 'json',
           success: function(data) {
@@ -56,7 +56,8 @@
           }
         });
       });
-      $("#form-modal").on('submit', "#create-candidate-form", function(event) {
+      $("#form-modal").on('submit', "#js-candidate-create-form", function(event) {
+        event.preventDefault();
         var form =  $(this)
         $.ajax({
           url: form.attr('action'),
@@ -73,7 +74,6 @@
             }
           }
         }); //End Ajax call
-        event.preventDefault()
       });
     });
   </script>
