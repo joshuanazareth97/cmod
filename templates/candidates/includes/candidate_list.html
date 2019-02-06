@@ -1,7 +1,18 @@
 {% for candidate in candidates %}
   <li class="collection-item">
-    <span class="title">{{candidate.name}}</span>
-    <p>{{candidate.cid}}</p>
+      <span class="title">{{candidate.name}}</span>
+      <a href="" class="secondary-content">
+        <i class="material-icons">delete</i>
+      </a>
+      &nbsp;
+      <a onclick='alert("Coming Soon")' class="secondary-content">
+        <i class="material-icons">star</i>
+      </a>
+      &nbsp;
+      <a href="" class="secondary-content">
+        <i class="material-icons">edit</i>
+      </a>
+      <p>{{candidate.cid}}</p>
   </li>
 {% empty %}
   <li class="collection-item empty">
