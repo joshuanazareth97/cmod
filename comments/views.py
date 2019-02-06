@@ -38,17 +38,13 @@ def create_candidate(request):
                 candidate.creator = request.user
                 candidate.save()
                 data["is_valid"] = True
-                candidates = Candidate.objects.filter(creator=request.user).order_by("name")
                 data["html_candidate_list"] = render_to_string("candidates/includes/candidate_list.html",{"candidates":candidates})
                 print(data["html_candidate_list"])
             else:
                 data["is_valid"] = False
         else: #GET request
             form = CandidateForm()
-        context = {
-            "form": form
-        }
-        data["html_form"] = render_to_string("candidates/includes/create_form.html", context, request)
+        data["html_form"] = render_to_string("candidates/includes/create_form.html", {"form": form}, request)
         return JsonResponse(data)
     else:
         raise PermissionDenied("Cannot access this endpoint in this manner.")
