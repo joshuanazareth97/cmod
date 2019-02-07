@@ -6,6 +6,9 @@
   .collection-item.empty {
     text-align: center;
   }
+  .modal-content h4 {
+    text-align: center;
+  }
   .modal-footer a:hover {
     color: #3f51b5;
   }
@@ -30,7 +33,7 @@
     <ul class="collection col s12" id="candidate-list">
       {% include "candidates/includes/candidate_list.html" %}
     </ul>
-    <div class="fixed-action-btn" id="js-candidate-create-btn" data-url="{% url 'create_candidate' %}">
+    <div class="fixed-action-btn js-candidate-create-btn" data-url="{% url 'create_candidate' %}">
       <a class="btn-floating btn-large red" href="#form-modal">
         <i class="large material-icons">add</i>
       </a>
