@@ -1,9 +1,9 @@
 {% load widget_tweaks %}
 
-<form action="{% url 'create_candidate' %}" id="js-candidate-create-form" method="post">
+<form action="{% url 'edit_candidate' form.instance.cid %}" id="js-candidate-create-form" method="post">
   {% csrf_token %}
   <div class="modal-content">
-    <h4>Create Candidate</h4>
+    <h4>Edit Candidate #{{form.instance.cid}}</h4>
     <br>
     {% include "candidates/includes/partial_form.html" %}
   </div>
