@@ -26,8 +26,8 @@ def all_candidates(request):
     }
     return render(request, "candidates/all_candidates.html", context)
 
-def save_candidate(request, form, edit=False):
-    if edit:
+def save_candidate(request, form):
+    if form.edit:
         template = "candidates/includes/edit_form.html"
     else:
         template = "candidates/includes/create_form.html"
@@ -36,7 +36,7 @@ def save_candidate(request, form, edit=False):
         if request.method == "POST":
             if form.is_valid():
                 candidate = form.save(commit=False)
-                if not edit:
+                if not form.edit:
                     candidate.creator = request.user
                 candidate.save()
                 data["is_valid"] = True
@@ -60,4 +60,8 @@ def create_candidate(request):
 @login_required
 def edit_candidate(request, cid):
     candidate = get_object_or_404(Candidate, cid=cid, creator=request.user)
-    return HttpResponse(f"<h3>CID: {cid} <br /> {candidate.name}</h3>")
+    if request.method == 'POST':
+        form = CandidateForm(request.POST, instance=candidate, edit=True)
+    else:
+        form = CandidateForm(instance=candidate, edit=True)
+    return save_candidate(request, form)
