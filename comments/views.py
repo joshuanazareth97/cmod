@@ -24,7 +24,6 @@ def all_candidates(request):
         "candidates": Candidate.objects.filter(creator=request.user).order_by("name")
 
     }
-    print(context["candidates"])
     return render(request, "candidates/all_candidates.html", context)
 
 @login_required
