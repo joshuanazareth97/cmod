@@ -61,8 +61,8 @@
         });
       }
       $(".js-candidate-create-btn").click(loadCandidateForm); //bind Create Candidate form to button
-      $(".js-candidate-edit-btn").click(loadCandidateForm); //bind Edit Candidate form to button
-      $("#form-modal").on('submit', "#js-candidate-create-form", function(event) {
+      $("#candidate-list").on("click", ".js-candidate-edit-btn", loadCandidateForm); //bind Edit Candidate form to button
+      $("#form-modal").on('submit', ".js-candidate-form", function(event) {
         event.preventDefault();
         var form =  $(this)
         $.ajax({
