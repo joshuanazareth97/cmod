@@ -7,7 +7,7 @@ class CandidateForm(forms.ModelForm):
         fields = ('cid', 'name', 'designation')
 
     def __init__(self, *args, **kwargs):
-        edit = kwargs.pop('edit', False)
+        self.edit = kwargs.pop('edit', False)
         super(CandidateForm, self).__init__(*args, **kwargs)
-        if edit:
+        if self.edit:
             self.fields.pop('cid')
