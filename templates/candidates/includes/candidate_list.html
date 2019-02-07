@@ -1,7 +1,7 @@
 {% for candidate in candidates %}
   <li class="collection-item">
       <span class="title">{{candidate.name}}</span>
-      <a href="" class="secondary-content js-candidate-edit">
+      <a class="secondary-content">
         <i class="material-icons">delete</i>
       </a>
       &nbsp;
@@ -9,7 +9,7 @@
         <i class="material-icons">star</i>
       </a>
       &nbsp;
-      <a href="" class="secondary-content">
+      <a class="secondary-content js-candidate-edit-btn" data-url="{% url 'edit_candidate' candidate.cid %}">
         <i class="material-icons">edit</i>
       </a>
       <p>{{candidate.cid}}</p>
