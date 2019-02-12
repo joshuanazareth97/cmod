@@ -1,7 +1,7 @@
 {% for candidate in candidates %}
   <li class="collection-item">
       <span class="title">{{candidate.name}}</span>
-      <a class="secondary-content">
+      <a class="secondary-content js-candidate-delete-btn" data-url="{% url 'delete_candidate' candidate.cid %}">
         <i class="material-icons">delete</i>
       </a>
       &nbsp;
