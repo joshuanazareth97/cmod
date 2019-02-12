@@ -77,8 +77,7 @@ def delete_candidate(request, cid):
             new_candidates = Candidate.objects.filter(creator=request.user).order_by("name")
             data["html_candidate_list"] = render_to_string("candidates/includes/candidate_list.html",{"candidates":new_candidates})
         else:
-            confirm_box = render_to_string("candidates/includes/delete_form.html", {"candidate": candidate}, request)
-            data["html_delete_dialog"] = confirm_box
+            data["html_form"] = render_to_string("candidates/includes/delete_form.html", {"candidate": candidate}, request)
         return JsonResponse(data)
     else:
         raise PermissionDenied("Cannot access this endpoint in this manner.")

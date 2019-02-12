@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import homepage, all_candidates, create_candidate, edit_candidate
+from .views import homepage, all_candidates, create_candidate, edit_candidate, delete_candidate
 
 
 urlpatterns = [
