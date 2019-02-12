@@ -1,0 +1,15 @@
+{% load widget_tweaks %}
+
+<form action="{% url 'delete_candidate' candidate.cid %}" class="js-candidate-delete-dialog" method="post">
+  {% csrf_token %}
+  <div class="modal-content">
+    <h4>Delete Candidate #{{candidate.cid}}</h4>
+    <br>
+    <p>Are you sure you want to delete <b>{{candidate.name}}</b>?</p>
+    <p>All related notes, reminders and documents will also be deleted.</p>
+  </div>
+  <div class="modal-footer">
+    <input type="submit" class="btn-flat submit">
+    <a class="modal-close btn-flat">Close</a>
+  </div>
+</form>
