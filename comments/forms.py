@@ -11,3 +11,7 @@ class CandidateForm(forms.ModelForm):
         super(CandidateForm, self).__init__(*args, **kwargs)
         if self.edit:
             self.fields.pop('cid')
+
+    def clean_name(self):
+        data = self.cleaned_data.get("name").title()
+        return data
