@@ -6,5 +6,6 @@ urlpatterns = [
     path("", homepage, name="home"),
     path("candidates/all", all_candidates, name="all_candidates"),
     path("candidates/create", create_candidate, name="create_candidate"),
-    path("candidates/<cid>/edit", edit_candidate, name="edit_candidate")
+    path("candidates/<cid>/edit", edit_candidate, name="edit_candidate"),
+    path("candidates/<cid>/delete", delete_candidate, name="delete_candidate"),
 ]

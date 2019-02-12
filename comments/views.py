@@ -65,3 +65,18 @@ def edit_candidate(request, cid):
     else:
         form = CandidateForm(instance=candidate, edit=True)
     return save_candidate(request, form)
+
+@login_required
+def delete_candidate(request, cid):
+    data = {}
+    if request.is_ajax():
+        candidate = get_object_or_404(Candidate, cid=cid, creator=request.user)
+        if request.method == 'POST':
+            candidate.delete()
+            data["deleted"] = True
+        else:
+            confirm_box = render_to_string("candidates/includes/delete_form.html", {"candidate": candidate}, request)
+            data["html_delete_dialog"] = confirm_box
+        return JsonResponse(data)
+    else:
+        raise PermissionDenied("Cannot access this endpoint in this manner.")
