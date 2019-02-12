@@ -62,6 +62,7 @@
       }
       $(".js-candidate-create-btn").click(loadCandidateForm); //bind Create Candidate form to button
       $("#candidate-list").on("click", ".js-candidate-edit-btn", loadCandidateForm); //bind Edit Candidate form to button
+      $("#candidate-list").on("click", ".js-candidate-delete-btn", loadCandidateForm); //bind Delete Candidate form to button
       $("#form-modal").on('submit', ".js-candidate-form", function(event) {
         event.preventDefault();
         var form =  $(this)
@@ -81,6 +82,24 @@
           }
         }); //End Ajax call
       });
+      $("#form-modal").on("submit", ".js-candidate-delete-dialog", function(event) {
+        event.preventDefault();
+        var dialog = $(this)
+        $.ajax({
+          url: dialog.attr('action'),
+          method: dialog.attr('method'),
+          datatype: 'json',
+          success: function(data) {
+            if(data.deleted) {
+              $("#candidate-list").html(data.html_candidate_list)
+            }
+            else {
+              alert("Some error occurred. Please try again.")
+            }
+            modal_instance.close()
+          }
+        })
+      })
     });
   </script>
 {% endblock javascript %}
