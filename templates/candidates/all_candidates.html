@@ -12,7 +12,11 @@
   .modal-footer a:hover {
     color: #3f51b5;
   }
-  #form-modal .form_input {
+  .errorlist {
+    color: red;
+    margin-top: 0px;
+  }
+  #form-modal .form_input, .errorlist {
     padding-left: 10px;
   }
   #candidate-list .secondary-content {
@@ -78,6 +82,7 @@
             }
             else {
               $("#form-modal").html(data.html_form)
+              M.updateTextFields()
             }
           }
         }); //End Ajax call

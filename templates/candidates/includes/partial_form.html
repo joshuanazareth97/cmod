@@ -5,6 +5,6 @@
     {# <input id ="name" type="text" class="validate {% if field.errors %}invalid{% endif %}"> #}
     {% render_field  field class="form_input validate"|add_error_class:"invalid" %}
     <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-    {# <span class="helper-text" data-error="wrong">Helper text</span> #}
+    <span class="helper-text">{{field.errors}}</span>
   </div>
 {% endfor %}
