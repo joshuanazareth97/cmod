@@ -91,4 +91,6 @@ def delete_candidate(request, cid):
 
 @login_required
 def all_candidate_comments(request, cid):
-    return render(request, "comments/all_comments.html")
+    candidate = request.user.candidates.get(cid=cid)
+    comments = candidate.candidate_comments.all()
+    return render(request, "comments/all_comments.html", {'candidate': candidate, 'comments':comments})
