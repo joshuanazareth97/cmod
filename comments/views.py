@@ -2,7 +2,9 @@ from django.http import HttpResponse, JsonResponse
 from django.template.loader import render_to_string
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
+
 from django.core.exceptions import PermissionDenied
+from django.db import IntegrityError
 
 from .models import Candidate
 from .forms import CandidateForm
@@ -38,10 +40,15 @@ def save_candidate(request, form):
                 candidate = form.save(commit=False)
                 if not form.edit:
                     candidate.creator = request.user
-                candidate.save()
-                data["is_valid"] = True
-                candidates = Candidate.objects.filter(creator=request.user).order_by("name")
-                data["html_candidate_list"] = render_to_string("candidates/includes/candidate_list.html",{"candidates":candidates})
+                try:
+                    candidate.save()
+                except IntegrityError:
+                    data["is_valid"] = False
+                    form.add_error('cid',f'Candidate with this ID exists [{request.user.candidates.get(cid=request.POST.get("cid")).name}]')
+                else:
+                    data["is_valid"] = True
+                    candidates = Candidate.objects.filter(creator=request.user).order_by("name")
+                    data["html_candidate_list"] = render_to_string("candidates/includes/candidate_list.html",{"candidates":candidates})
             else:
                 data["is_valid"] = False
         data["html_form"] = render_to_string(template, {"form": form}, request)
