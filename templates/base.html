@@ -61,6 +61,9 @@
       </div>
     </div>
   </nav>
+  <div id="form-modal" class="modal">
+
+  </div>
   {% block content %}
 
   {% endblock content %}
@@ -69,7 +72,23 @@
 
   {% block javascript %}
   <script type="text/javascript">
-    $( document ).ready(function() {
+    var modal_instance
+  //generic function to load form by retrieving from data-url of attached element
+    var loadForm = function() {
+      $.ajax({
+        url: $(this).attr("data-url"),
+        method: 'get',
+        datatype: 'json',
+        success: function(data) {
+          $("#form-modal").html(data.html_form)
+          M.updateTextFields()
+          modal_instance.open()
+        }
+      });
+    }
+    $(function () {
+      var modal_elem= document.querySelector('.modal');
+      modal_instance = M.Modal.init(modal_elem);
       var dropdown_elem = document.querySelectorAll('.dropdown-trigger')
       var dropdown_instance = M.Dropdown.init(dropdown_elem, {hover: true, beloworigin: true})
       $(".dropdown-trigger").hover(function(){

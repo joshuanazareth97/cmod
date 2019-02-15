@@ -3,7 +3,7 @@
 {% block css %}
 {{ block.super }}
 <style media="screen">
-  
+
   .modal-content h4 {
     text-align: center;
   }
@@ -33,9 +33,6 @@
 {% endblock css %}
 
 {% block content %}
-  <div id="form-modal" class="modal">
-
-  </div>
   <div class="container row">
     <h3>All Candidates</h3>
     <ul class="collection col s12 l8" id="candidate-list">
@@ -53,24 +50,9 @@
   {{ block.super }}
   <script type="text/javascript">
     $(function () {
-      var modal_elem= document.querySelector('.modal');
-      var modal_instance = M.Modal.init(modal_elem);
-      //generic function to load candidate form
-      var loadCandidateForm = function() {
-        $.ajax({
-          url: $(this).attr("data-url"),
-          method: 'get',
-          datatype: 'json',
-          success: function(data) {
-            $("#form-modal").html(data.html_form)
-            M.updateTextFields()
-            modal_instance.open()
-          }
-        });
-      }
-      $(".js-candidate-create-btn").click(loadCandidateForm); //bind Create Candidate form to button
-      $("#candidate-list").on("click", ".js-candidate-edit-btn", loadCandidateForm); //bind Edit Candidate form to button
-      $("#candidate-list").on("click", ".js-candidate-delete-btn", loadCandidateForm); //bind Delete Candidate form to button
+      $(".js-candidate-create-btn").click(loadForm); //bind Create Candidate form to button
+      $("#candidate-list").on("click", ".js-candidate-edit-btn", loadForm); //bind Edit Candidate form to button
+      $("#candidate-list").on("click", ".js-candidate-delete-btn", loadForm); //bind Delete Candidate form to button
       $("#form-modal").on('submit', ".js-candidate-form", function(event) {
         event.preventDefault();
         var form =  $(this)
