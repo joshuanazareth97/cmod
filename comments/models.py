@@ -4,6 +4,13 @@ from django.contrib.auth.models import User
 def gen_doc_filepath(instance, filename):
     return f"{self.candidate.cid}\\{filename}"
 
+class TimeStammpedModel(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
 class Candidate(models.Model):
     name = models.CharField(max_length=200)
     cid = models.CharField("Candidate ID", max_length=20)
@@ -16,7 +23,7 @@ class Candidate(models.Model):
     def __str__(self):
         return f"{self.name} [{self.cid}]"
 
-class Comment(models.Model):
+class Comment(TimeStammpedModel):
     title = models.CharField(max_length=140)
     text = models.CharField(max_length=1000)
     type_choices = (
@@ -28,23 +35,18 @@ class Comment(models.Model):
     starred = models.BooleanField(default=False)
     candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE, related_name="candidate_comments")
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_comments")
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
 
-class Document(models.Model):
+
+class Document(TimeStammpedModel):
     title = models.CharField(max_length=140)
     candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE, related_name="candidate_documents")
     file = models.FileField(upload_to=gen_doc_filepath)
     starred = models.BooleanField(default=True)
     uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_documents")
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
 
 
-class Reminder(models.Model):
+class Reminder(TimeStammpedModel):
     title = models.CharField(max_length=140)
     candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE, related_name="candidate_reminders")
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_reminders")
     due_date = models.DateField()
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
