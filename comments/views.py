@@ -88,3 +88,7 @@ def delete_candidate(request, cid):
         return JsonResponse(data)
     else:
         raise PermissionDenied("Cannot access this endpoint in this manner.")
+
+@login_required
+def all_candidate_comments(request, cid):
+    return render(request, "comments/all_comments.html")
