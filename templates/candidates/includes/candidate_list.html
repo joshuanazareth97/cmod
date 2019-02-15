@@ -1,5 +1,6 @@
 {% for candidate in candidates %}
-  <li class="collection-item">
+  <a href="{% url 'candidate_comments' candidate.cid %}">
+    <li class="collection-item">
       <span class="title">{{candidate.name}}</span>
       <a class="secondary-content js-candidate-delete-btn" data-url="{% url 'delete_candidate' candidate.cid %}">
         <i class="material-icons">delete</i>
@@ -13,7 +14,8 @@
         <i class="material-icons">edit</i>
       </a>
       <p>{{candidate.cid}}</p>
-  </li>
+    </li>
+  </a>
 {% empty %}
   <li class="collection-item empty">
     <p>Looks like you have no candidates! Create a new candidate to begin.</p>
