@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block css %}
+  {{block.super}}
+  <style media="screen">
+    .container .title small {
+      color: grey;
+    }
+  </style>
+{% endblock css %}
+
+{% block content %}
+  <div class="container">
+    <h3 class="title">
+      {{candidate.name}} <br>
+      <small>#{{candidate.cid}}</small>
+    </h3>
+    <h5 class="designation">
+      Designation: {{candidate.designation}}
+    </h5>
+
+    <div class="row">
+      <ul class="collection col s12" id="candidate-list">
+        {% include "comments/includes/comment_list.html" %}
+      </ul>
+    </div>
+
+    <div class="fixed-action-btn js-candidate-create-btn" data-url="{% url 'create_candidate' %}">
+      <a class="btn-floating btn-large red" href="#form-modal">
+        <i class="large material-icons">add</i>
+      </a>
+    </div>
+  </div>
+{% endblock content %}
+
+{% block javascript %}
+  {{block.super}}
+{% endblock javascript%}
