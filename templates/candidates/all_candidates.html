@@ -18,7 +18,7 @@
   .secondary-content {
     cursor: pointer;
   }
-  
+
   #form-modal .form_input, .errorlist {
     padding-left: 10px;
   }
@@ -37,14 +37,15 @@
 
   </div>
   <div class="container row">
-    <ul class="collection col s12" id="candidate-list">
+    <h3>All Candidates</h3>
+    <ul class="collection col s12 l8" id="candidate-list">
       {% include "candidates/includes/candidate_list.html" %}
     </ul>
-    <div class="fixed-action-btn js-candidate-create-btn" data-url="{% url 'create_candidate' %}">
-      <a class="btn-floating btn-large red" href="#form-modal">
-        <i class="large material-icons">add</i>
-      </a>
-    </div>
+  </div>
+  <div class="fixed-action-btn js-candidate-create-btn" data-url="{% url 'create_candidate' %}">
+    <a class="btn-floating btn-large red" href="#form-modal">
+      <i class="large material-icons">add</i>
+    </a>
   </div>
 {% endblock content %}
 
