@@ -2,6 +2,7 @@ from django.http import HttpResponse, JsonResponse
 from django.template.loader import render_to_string
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 
 from django.core.exceptions import PermissionDenied
 from django.db import IntegrityError
@@ -92,5 +93,21 @@ def delete_candidate(request, cid):
 @login_required
 def all_candidate_comments(request, cid):
     candidate = request.user.candidates.get(cid=cid)
-    comments = candidate.candidate_comments.all()
+    # comments = candidate.candidate_comments.all()
+    text = '''Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus laborum qui, sit eum mollitia!
+    Blanditiis impedit quas commodi itaque, eveniet earum recusandae deserunt assumenda in, omnis obcaecati,
+    ducimus rerum autem ut veniam iste aut, illo quasi est ullam quos incidunt unde! Mollitia recusandae consequatur
+    ipsam labore non! Pariatur sapiente quam quis, praesentium quasi ipsum officia, magnam cumque ex expedita delectus
+    sequi labore voluptatem distinctio, fugiat iure possimus. Fuga exercitationem odio, voluptates nisi quisquam veritatis
+    rem ad iure eaque facere libero atque reiciendis earum porro quas consequatur commodi consequuntur temporibus
+    reprehenderit esse est ut neque iste. Aliquam culpa est amet laborum.
+    '''
+    comments = [
+        {'title':"Test Title", 'text':text, 'type':"Note", 'starred':False, 'created': timezone.now(), 'modified': timezone.now()},
+        {'title':"Test Title 2", 'text':text[:300], 'type':"Note", 'starred':False, 'created': timezone.now(), 'modified': timezone.now()}
+    ]
     return render(request, "comments/all_comments.html", {'candidate': candidate, 'comments':comments})
+
+@login_required
+def create_candidate_comment(request, cid):
+    return JsonResponse({"html_form":"Test Server Data"})
