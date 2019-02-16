@@ -47,4 +47,9 @@
 
 {% block javascript %}
   {{block.super}}
+  <script type="text/javascript">
+  $(function () {
+    $(".js-comment-create-btn").click(loadForm);
+  });
+  </script>
 {% endblock javascript%}
