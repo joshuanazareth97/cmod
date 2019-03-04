@@ -8,7 +8,7 @@ from django.core.exceptions import PermissionDenied
 from django.db import IntegrityError
 
 from .models import Candidate
-from .forms import CandidateForm
+from .forms import CandidateForm, CommentForm
 # Create your views here.
 
 @login_required
@@ -110,4 +110,10 @@ def all_candidate_comments(request, cid):
 
 @login_required
 def create_candidate_comment(request, cid):
+    if request.method == 'POST':
+        form = CommentForm()
+    else:
+        form = CommentForm(request)
+    for field in form.fields:
+        print(field)
     return JsonResponse({"html_form":"Test Server Data"})
