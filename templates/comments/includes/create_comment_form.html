@@ -1,0 +1,18 @@
+{% load widget_tweaks %}
+
+<form action="{% url 'create_comment' candidate.cid %}" class="js-candidate-form" method="post">
+  {% csrf_token %}
+  <div class="modal-content">
+    <h4>New Comment for {{candidate.name}}</h4>
+    <br>
+    <div class="input-field col s12">
+      {% render_field form.title class="form_input validate"|add_error_class:"invalid" %}
+      <label for="{{ form.text.id_for_label }}">{{ form.text.label }}</label>
+      <span class="helper-text">{{field.errors}}</span>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <input type="submit" class="btn-flat submit">
+    <a class="modal-close btn-flat">Close</a>
+  </div>
+</form>
