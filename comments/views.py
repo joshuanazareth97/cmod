@@ -110,10 +110,11 @@ def all_candidate_comments(request, cid):
 
 @login_required
 def create_candidate_comment(request, cid):
+    candidate = get_object_or_404(Candidate, cid=cid, creator = request.user)
     if request.method == 'POST':
-        form = CommentForm()
+        form = CommentForm(request=request)
+        return HttpResponse("Posted")
     else:
-        form = CommentForm(request)
-    for field in form.fields:
-        print(field)
-    return JsonResponse({"html_form":"Test Server Data"})
+        form = CommentForm(request=request)
+        html_form = render_to_string("comments/includes/create_comment_form.html", {"candidate": candidate, "form": form}, request)
+        return JsonResponse({"html_form":html_form})
