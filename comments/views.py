@@ -92,7 +92,7 @@ def delete_candidate(request, cid):
 
 @login_required
 def all_candidate_comments(request, cid):
-    candidate = request.user.candidates.get(cid=cid)
+    candidate = get_object_or_404(Candidate, cid=cid, creator = request.user)
     # comments = candidate.candidate_comments.all()
     text = '''Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus laborum qui, sit eum mollitia!
     Blanditiis impedit quas commodi itaque, eveniet earum recusandae deserunt assumenda in, omnis obcaecati,
