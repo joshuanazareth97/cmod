@@ -116,3 +116,9 @@ def create_candidate_comment(request, cid):
         form = CommentForm()
     data["html_form"] = render_to_string("comments/includes/create_comment_form.html", {"candidate": candidate, "form": form}, request)
     return JsonResponse(data)
+
+
+@login_required
+def edit_candidate_comment(request, hash_id):
+    print(hash_id)
+    return HttpResponse("OK")
