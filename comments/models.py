@@ -36,6 +36,9 @@ class Comment(TimeStammpedModel):
     candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE, related_name="candidate_comments")
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_comments")
 
+    def __str__(self):
+        return f"{self.author.first_name} {self.author.last_name} | {self.candidate.name} [{self.id}]"
+
 
 class Document(TimeStammpedModel):
     title = models.CharField(max_length=140)
