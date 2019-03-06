@@ -20,9 +20,6 @@ class CommentForm (forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('title', 'text', 'type', 'starred')
-
-    def __init__(self, request=None, *args, **kwargs):
-        if request:
-            super(CommentForm, self).__init__(request.POST, *args, **kwargs)
-        else:
-            super(CommentForm, self).__init__(*args, **kwargs)
+        widgets = {
+            'text': forms.Textarea(),
+        }
