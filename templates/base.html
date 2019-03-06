@@ -103,7 +103,6 @@
       event.preventDefault();
       var form = $(this)
       var container_selector = form.attr("data-target")
-      console.log(container_selector);
       $.ajax({
         url: form.attr('action'),
         method: form.attr('method'),
