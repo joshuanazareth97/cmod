@@ -9,6 +9,10 @@
       color: grey;
     }
 
+    #comment-list {
+      overflow-y: scroll;
+    }
+
     #comment-list .secondary {
       color:grey;
     }
@@ -18,23 +22,31 @@
     #comment-list .card-title {
       font-weight: bold;
     }
+    .select-wrapper .dropdown-content {
+      width: inherit !important;
+    }
   </style>
 {% endblock css %}
 
 {% block content %}
+  <br>
+  <br>
   <div class="container">
-    <h3 class="title">
-      {{candidate.name}} <br>
-      <small>#{{candidate.cid}}</small>
-    </h3>
-    <h5 class="designation">
-      Designation: {{candidate.designation}}
-    </h5>
-
     <div class="row">
-      <ul class="collection col s12 l9 offset-l3" id="comment-list">
-        {% include "comments/includes/comment_list.html" %}
-      </ul>
+      <div class="col s12 l3">
+        <h3 class="title">
+          {{candidate.name}} <br>
+          <small>#{{candidate.cid}}</small>
+        </h3>
+        <h5 class="designation">
+          Designation: {{candidate.designation}}
+        </h5>
+      </div>
+      <div class="col s12 l9" id="comment-list">
+        <ul class="collection">
+          {% include "comments/includes/comment_list.html" %}
+        </ul>
+      </div>
     </div>
 
     <div class="fixed-action-btn js-comment-create-btn" data-url="{% url 'create_comment' candidate.cid %}">
