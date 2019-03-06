@@ -21,13 +21,19 @@ def homepage(request):
 
 @login_required
 def all_candidates(request):
-    candidate = Candidate.objects.filter(creator=request.user)
-    context = {
-        "user": request.user,
-        "candidates": Candidate.objects.filter(creator=request.user).order_by("name")
-
-    }
-    return render(request, "candidates/all_candidates.html", context)
+    if request.method == "GET":
+        candidates = Candidate.objects.filter(creator=request.user)
+        order_term = request.GET.get("orderby", "name")
+        print(order_term)
+        context = {
+            "user": request.user,
+            "candidates": candidates.order_by(order_term)
+        }
+        if request.is_ajax():
+            candidates_html_list = render_to_string("candidates/includes/candidate_list.html", context)
+            return JsonResponse({"html_list": candidates_html_list})
+        else:
+            return render(request, "candidates/all_candidates.html", context)
 
 def save_candidate(request, form):
     if form.edit:
