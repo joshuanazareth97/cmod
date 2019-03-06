@@ -93,7 +93,7 @@ def delete_candidate(request, cid):
 @login_required
 def all_candidate_comments(request, cid):
     candidate = get_object_or_404(Candidate, cid=cid, creator = request.user)
-    comments = candidate.candidate_comments.all()
+    comments = candidate.candidate_comments.all().order_by("-created")
     return render(request, "comments/all_comments.html", {'candidate': candidate, 'comments':comments})
 
 @login_required
@@ -108,7 +108,7 @@ def create_candidate_comment(request, cid):
             comment.candidate = candidate
             comment.author = request.user
             comment.save()
-            comments = Comment.objects.filter(candidate = candidate, author=request.user,).order_by("-created")
+            comments = candidate.candidate_comments.all().order_by("-created")
             data["html_comment_list"] = render_to_string("comments/includes/comment_list.html",{"comments":comments})
         else:
             data["is_valid"] = False
