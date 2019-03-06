@@ -101,7 +101,6 @@ def create_candidate_comment(request, cid):
     candidate = get_object_or_404(Candidate, cid=cid, creator = request.user)
     data = {}
     if request.method == 'POST':
-        print(request.POST)
         form = CommentForm(request.POST)
         if form.is_valid():
             data["is_valid"] = True
