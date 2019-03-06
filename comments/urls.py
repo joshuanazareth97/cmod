@@ -8,6 +8,6 @@ urlpatterns = [
     path("candidates/create", create_candidate, name="create_candidate"),
     path("candidates/<cid>/edit", edit_candidate, name="edit_candidate"),
     path("candidates/<cid>/delete", delete_candidate, name="delete_candidate"),
-    path("canddiates/<cid>/comments/all", all_candidate_comments, name="candidate_comments"),
-    path("canddiates/<cid>/comments/create", create_candidate_comment, name="create_comment"),
+    path("candidates/<cid>/comments/all", all_candidate_comments, name="candidate_comments"),
+    path("candidates/<cid>/comments/create", create_candidate_comment, name="create_comment"),
 ]
