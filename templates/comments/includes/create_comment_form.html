@@ -6,7 +6,13 @@
     <h4>New Comment for {{candidate.name}}</h4>
     <br>
     <div class="row">
-      <div class="input-field col s12">
+      <div class="input-field col s12 m2">
+        {% render_field form.type%}
+        <label for="{{ form.type.id_for_label }}">{{ form.type.label }}</label>
+        <span class="helper-text">{{field.errors}}</span>
+      </div>
+
+      <div class="input-field col s12 m10">
         {% render_field form.title class="form_input validate"|add_error_class:"invalid" %}
         <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
         <span class="helper-text">{{field.errors}}</span>
@@ -16,13 +22,6 @@
       <div class="input-field col s12">
         {% render_field form.text class="materialize-textarea validate"|add_error_class:"invalid" %}
         <label for="{{ form.text.id_for_label }}">{{ form.text.label }}</label>
-        <span class="helper-text">{{field.errors}}</span>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s12 m6">
-        {% render_field form.type%}
-        <label for="{{ form.type.id_for_label }}">{{ form.type.label }}</label>
         <span class="helper-text">{{field.errors}}</span>
       </div>
     </div>
