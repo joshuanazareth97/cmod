@@ -1,6 +1,6 @@
 {% load widget_tweaks %}
 
-<form action="{% url 'create_comment' candidate.cid %}" class="js-comment-create-form" method="post">
+<form action="{% url 'create_comment' candidate.cid %}" class="js-comment-create-form" method="post" data-target="#comment-list ul">
   {% csrf_token %}
   <div class="modal-content">
     <h4>New Comment for {{candidate.name}}</h4>
