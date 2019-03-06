@@ -74,6 +74,16 @@
   <script type="text/javascript">
     var modal_instance
   //generic function to load form by retrieving from data-url of attached element
+    var reload = function(selector) {
+      $.ajax({
+        url: $(selector).attr("data-url"),
+        method: "GET",
+        data: {"orderby":"cid"},
+        success: function(data){
+          $(selector).html(data.html_list)
+        }
+      })
+    }
     var loadForm = function() {
       $.ajax({
         url: $(this).attr("data-url"),
@@ -88,6 +98,29 @@
           modal_instance.open()
         }
       });
+    }
+    var submitFormCallback = function(event) {
+      event.preventDefault();
+      var form = $(this)
+      var container_selector = form.attr("data-target")
+      console.log(container_selector);
+      $.ajax({
+        url: form.attr('action'),
+        method: form.attr('method'),
+        datatype: 'json',
+        data: form.serialize(),
+        success: function(data) {
+          if(data.is_valid) {
+            reload(container_selector)
+            // $("#comment-list ul").html(data.html_comment_list)
+            modal_instance.close()
+          }
+          else {
+            $("#form-modal").html(data.html_form)
+            M.updateTextFields()
+          }
+        }
+      }); //End Ajax call
     }
     $(function () {
       var modal_elem = document.querySelector('.modal');
