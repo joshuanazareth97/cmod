@@ -54,8 +54,6 @@ def save_candidate(request, form):
                     form.add_error('cid',f'Candidate with this ID exists [{request.user.candidates.get(cid=request.POST.get("cid")).name}]')
                 else:
                     data["is_valid"] = True
-                    candidates = Candidate.objects.filter(creator=request.user).order_by("name")
-                    data["html_candidate_list"] = render_to_string("candidates/includes/candidate_list.html",{"candidates":candidates})
             else:
                 data["is_valid"] = False
         data["html_form"] = render_to_string(template, {"form": form}, request)
@@ -71,6 +69,7 @@ def create_candidate(request):
         form = CandidateForm()
     return save_candidate(request, form)
 
+
 @login_required
 def edit_candidate(request, cid):
     candidate = get_object_or_404(Candidate, cid=cid, creator=request.user)
@@ -79,6 +78,7 @@ def edit_candidate(request, cid):
     else:
         form = CandidateForm(instance=candidate, edit=True)
     return save_candidate(request, form)
+
 
 @login_required
 def delete_candidate(request, cid):
@@ -89,18 +89,26 @@ def delete_candidate(request, cid):
             candidate.delete()
             data["deleted"] = True
             new_candidates = Candidate.objects.filter(creator=request.user).order_by("name")
-            data["html_candidate_list"] = render_to_string("candidates/includes/candidate_list.html",{"candidates":new_candidates})
         else:
             data["html_form"] = render_to_string("candidates/includes/delete_form.html", {"candidate": candidate}, request)
         return JsonResponse(data)
     else:
         raise PermissionDenied("Cannot access this endpoint in this manner.")
 
+
 @login_required
 def all_candidate_comments(request, cid):
-    candidate = get_object_or_404(Candidate, cid=cid, creator = request.user)
-    comments = candidate.candidate_comments.all().order_by("-created")
-    return render(request, "comments/all_comments.html", {'candidate': candidate, 'comments':comments})
+    if request.method == "GET":
+        candidate = get_object_or_404(Candidate, cid=cid, creator = request.user)
+        comments = candidate.candidate_comments.all().order_by("-created")
+        if request.is_ajax():
+            html_comment_list = render_to_string("comments/includes/comment_list.html", {"comments": comments})
+            return JsonResponse({"html_list": html_comment_list})
+        else:
+            return render(request, "comments/all_comments.html", {'candidate': candidate, 'comments':comments})
+    else:
+        raise PermissionDenied("Cannot access this endpoint using POST.")
+
 
 @login_required
 def create_candidate_comment(request, cid):
