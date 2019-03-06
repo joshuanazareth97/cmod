@@ -35,7 +35,7 @@
 {% block content %}
   <div class="container row">
     <h3>All Candidates</h3>
-    <ul class="collection col s12 l8" id="candidate-list">
+    <ul class="collection col s12 l8" id="candidate-list" data-url="{% url 'all_candidates' %}">
       {% include "candidates/includes/candidate_list.html" %}
     </ul>
   </div>
@@ -63,7 +63,7 @@
           data: form.serialize(),
           success: function(data) {
             if(data.is_valid) {
-              $("#candidate-list").html(data.html_candidate_list)
+              reload("#candidate-list")
               modal_instance.close()
             }
             else {
@@ -82,7 +82,7 @@
           datatype: 'json',
           success: function(data) {
             if(data.deleted) {
-              $("#candidate-list").html(data.html_candidate_list)
+              reload("#candidate-list")
             }
             else {
               alert("Some error occurred. Please try again.")
