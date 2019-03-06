@@ -45,7 +45,7 @@
         </h5>
       </div>
       <div class="col s12 l9" id="comment-list">
-        <ul class="collection">
+        <ul class="collection" data-url="{% url 'candidate_comments' candidate.cid %}">
           {% include "comments/includes/comment_list.html" %}
         </ul>
       </div>
