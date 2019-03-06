@@ -1,6 +1,6 @@
 {% load widget_tweaks %}
 
-<form action="{% url 'delete_candidate' candidate.cid %}" class="js-candidate-delete-dialog" method="post">
+<form action="{% url 'delete_candidate' candidate.cid %}" class="js-candidate-delete-dialog" method="post" data-target="#candidate-list">
   {% csrf_token %}
   <div class="modal-content">
     <h4>Delete Candidate #{{candidate.cid}}</h4>

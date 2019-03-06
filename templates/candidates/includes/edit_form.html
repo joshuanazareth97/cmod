@@ -1,6 +1,6 @@
 {% load widget_tweaks %}
 
-<form action="{% url 'edit_candidate' form.instance.cid %}" class="js-candidate-form" method="post">
+<form action="{% url 'edit_candidate' form.instance.cid %}" class="js-candidate-form" method="post" data-target="#candidate-list">
   {% csrf_token %}
   <div class="modal-content">
     <h4>Edit Candidate #{{form.instance.cid}}</h4>
