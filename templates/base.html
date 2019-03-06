@@ -82,6 +82,9 @@
         success: function(data) {
           $("#form-modal").html(data.html_form)
           M.updateTextFields()
+          var elems = document.querySelectorAll('select');
+          if(elems.length > 0)
+            var instances = M.FormSelect.init(elems);
           modal_instance.open()
         }
       });
