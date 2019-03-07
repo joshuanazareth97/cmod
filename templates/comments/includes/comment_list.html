@@ -18,7 +18,9 @@
         <p>{{comment.text}}</p>
       </div>
       <div class="card-action">
-        <button data-url="{% url 'edit_comment' comment.hash %}" class="btn-flat js-comment-edit-btn" data-form-target="#{{comment.hash}} .card"><i class="material-icons">edit</i></button>
+        <button data-url="{% url 'edit_comment' comment.hash %}" class="btn-flat js-comment-edit-btn" data-form-target="#{{comment.hash}} .card" js-suppress-modal>
+          <i class="material-icons">edit</i>
+        </button>
         <button href="" class="btn-flat js-comment-star-btn"><i class="material-icons">star</i></button>
         <button href="" class="btn-flat js-comment-delete-btn"><i class="material-icons">delete</i></button>
       </div>
