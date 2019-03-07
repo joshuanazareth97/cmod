@@ -133,5 +133,17 @@ def create_candidate_comment(request, cid):
 
 @login_required
 def edit_candidate_comment(request, hash_id):
-    print(hash_id)
+    comment = get_object_or_404(Comment, hash=hash_id)
+    data = {}
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            data["is_valid"] = True
+        else:
+            data["is_valid"] = False
+            data["html_form"] = render_to_string("comments/includes/edit_comment_form.html", {"candidate": comment.candidate, "form": form}, request)
+    else:
+        form = CommentForm(instance=comment)
+        data["html_form"] = render_to_string("comments/includes/edit_comment_form.html", {"candidate": comment.candidate, "form": form}, request)
+    print(data["html_form"])
     return HttpResponse("OK")
