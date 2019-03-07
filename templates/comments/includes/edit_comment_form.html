@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 
 
-<form action="{% url 'create_comment' candidate.cid %}" class="js-comment-create-form" method="post" data-target="#comment-list ul">
+<form action="{% url 'edit_comment' candidate.cid %}" class="js-comment-edit-form" method="post" data-target="#comment-list ul">
   {% csrf_token %}
   <div class="card-content">
     <span class="card-title">
@@ -27,8 +27,7 @@
     </div>
   </div>
   <div class="card-action">
-    <button href="" class="btn-flat js-comment-edit-btn"><i class="material-icons">edit</i></button>
-    <button href="" class="btn-flat js-comment-star-btn"><i class="material-icons">star</i></button>
-    <button href="" class="btn-flat js-comment-delete-btn"><i class="material-icons">delete</i></button>
+    <button class="btn-flat js-comment-edit-btn">Submit Changes</button>
+    <button onclick="reload" class="btn-flat" data-target="#comment-list ul">Exit</button>
   </div>
 </form>
