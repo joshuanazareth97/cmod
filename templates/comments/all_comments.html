@@ -64,27 +64,8 @@
   <script type="text/javascript">
   $(function () {
     $(".js-comment-create-btn").click(loadForm);
-    $("#form-modal").on('submit', ".js-comment-create-form", function(event) {
-      event.preventDefault();
-      var form =  $(this)
-      $.ajax({
-        url: form.attr('action'),
-        method: form.attr('method'),
-        datatype: 'json',
-        data: form.serialize(),
-        success: function(data) {
-          console.log(data)
-          if(data.is_valid) {
-            $("#comment-list ul").html(data.html_comment_list)
-            modal_instance.close()
-          }
-          else {
-            $("#form-modal").html(data.html_form)
-            M.updateTextFields()
-          }
-        }
-      }); //End Ajax call
-    });
+    $("#form-modal").on('submit', ".js-comment-create-form", submitFormCallback);
+    $("#comment-list").on('click', ".js-comment-edit-btn", loadForm)
   });
   </script>
 {% endblock javascript%}
