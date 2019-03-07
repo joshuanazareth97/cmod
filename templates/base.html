@@ -82,6 +82,9 @@
         data: {"orderby": urlParams.get('orderby') || "name"},
         success: function(data){
           $(selector).html(data.html_list)
+        },
+        error: function(data) {
+          alert("Server error. Please contact admin or try again.")
         }
       })
     }
@@ -95,9 +98,16 @@
           $(btn.attr("data-form-target")).html(data.html_form)
           M.updateTextFields()
           var elems = document.querySelectorAll('select');
+
           if(elems.length > 0)
             var instances = M.FormSelect.init(elems);
-          modal_instance.open()
+
+          if(btn.attr("js-suppress-modal") == undefined){
+            modal_instance.open()
+          }
+        },
+        error: function(data) {
+          alert("Server error. Please contact admin or try again.")
         }
       });
     }
@@ -120,7 +130,11 @@
             $("#form-modal").html(data.html_form)
             M.updateTextFields()
           }
+        },
+        error: function(data) {
+          alert("Server error. Please contact admin or try again.")
         }
+
       }); //End Ajax call
     }
     $(function () {
