@@ -1,5 +1,5 @@
 {% for candidate in candidates %}
-  <a href="{% url 'candidate_comments' candidate.cid %}">
+  <a href="{% url 'all_comments' candidate.cid %}">
     <li class="collection-item">
       <span class="title">{{candidate.name}}</span>
       <a class="secondary-content js-candidate-delete-btn" data-url="{% url 'delete_candidate' candidate.cid %}" data-form-target="#form-modal">
