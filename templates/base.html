@@ -75,10 +75,11 @@
     var modal_instance
   //generic function to load form by retrieving from data-url of attached element
     var reload = function(selector) {
+      var urlParams = new URLSearchParams(window.location.search);
       $.ajax({
         url: $(selector).attr("data-url"),
         method: "GET",
-        data: {"orderby":"cid"},
+        data: {"orderby": urlParams.get('orderby') || "name"},
         success: function(data){
           $(selector).html(data.html_list)
         }
