@@ -86,12 +86,13 @@
       })
     }
     var loadForm = function() {
+      var btn = $(this)
       $.ajax({
-        url: $(this).attr("data-url"),
+        url: btn.attr("data-url"),
         method: 'get',
         datatype: 'json',
         success: function(data) {
-          $("#form-modal").html(data.html_form)
+          $(btn.attr("data-form-target")).html(data.html_form)
           M.updateTextFields()
           var elems = document.querySelectorAll('select');
           if(elems.length > 0)
