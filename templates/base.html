@@ -75,6 +75,7 @@
     var modal_instance
   //generic function to load form by retrieving from data-url of attached element
     var reload = function(selector) {
+      var selector = selector || $(this).attr("data-target")
       var urlParams = new URLSearchParams(window.location.search);
       $.ajax({
         url: $(selector).attr("data-url"),
