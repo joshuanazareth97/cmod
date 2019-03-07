@@ -53,26 +53,7 @@
       $(".js-candidate-create-btn").click(loadForm); //bind Create Candidate form to button
       $("#candidate-list").on("click", ".js-candidate-edit-btn", loadForm); //bind Edit Candidate form to button
       $("#candidate-list").on("click", ".js-candidate-delete-btn", loadForm); //bind Delete Candidate form to button
-      $("#form-modal").on('submit', ".js-candidate-form", function(event) {
-        event.preventDefault();
-        var form =  $(this)
-        $.ajax({
-          url: form.attr('action'),
-          method: form.attr('method'),
-          datatype: 'json',
-          data: form.serialize(),
-          success: function(data) {
-            if(data.is_valid) {
-              reload("#candidate-list")
-              modal_instance.close()
-            }
-            else {
-              $("#form-modal").html(data.html_form)
-              M.updateTextFields()
-            }
-          }
-        }); //End Ajax call
-      });
+      $("#form-modal").on('submit', ".js-candidate-form", submitFormCallback);
       $("#form-modal").on("submit", ".js-candidate-delete-dialog", function(event) {
         event.preventDefault();
         var dialog = $(this)
@@ -88,6 +69,9 @@
               alert("Some error occurred. Please try again.")
             }
             modal_instance.close()
+          },
+          failure: function(data) {
+            alert("Some error occurred. Please refresh & try again.")
           }
         })
       })
