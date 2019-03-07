@@ -26,7 +26,7 @@ class Candidate(models.Model):
         return f"{self.name} [{self.cid}]"
 
 class Comment(TimeStammpedModel):
-    hash = models.UUIDField(default=uuid.uuid4, editable=False)
+    hash = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     title = models.CharField(max_length=140)
     text = models.CharField(max_length=1000)
     type_choices = (
