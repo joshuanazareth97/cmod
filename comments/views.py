@@ -24,7 +24,6 @@ def all_candidates(request):
     if request.method == "GET":
         candidates = Candidate.objects.filter(creator=request.user)
         order_term = request.GET.get("orderby", "name")
-        print(order_term)
         context = {
             "user": request.user,
             "candidates": candidates.order_by(order_term)
