@@ -22,7 +22,7 @@
           <i class="material-icons">edit</i>
         </button>
         <button href="" class="btn-flat js-comment-star-btn"><i class="material-icons">star</i></button>
-        <button href="" class="btn-flat js-comment-delete-btn"><i class="material-icons">delete</i></button>
+        <button class="btn-flat js-comment-delete-btn" data-url="{% url 'delete_comment' comment.hash %}"><i class="material-icons">delete</i></button>
       </div>
     </div>
   </li>
