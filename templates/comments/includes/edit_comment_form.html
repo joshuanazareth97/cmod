@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 
 
-<form action="{% url 'edit_comment' candidate.cid %}" class="js-comment-edit-form" method="post" data-target="#comment-list ul">
+<form action="{% url 'edit_comment' form.instance.hash %}" class="js-comment-edit-form" method="post" data-target="#comment-list ul">
   {% csrf_token %}
   <div class="card-content">
     <span class="card-title">
