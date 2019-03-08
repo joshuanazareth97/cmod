@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import homepage, all_candidates, create_candidate, edit_candidate, delete_candidate, all_candidate_comments, create_candidate_comment, edit_candidate_comment
+from .views import homepage, all_candidates, create_candidate, edit_candidate, delete_candidate, all_candidate_comments, create_candidate_comment, edit_candidate_comment, delete_candidate_comment
 
 
 urlpatterns = [
@@ -10,5 +10,6 @@ urlpatterns = [
     path("candidates/<cid>/delete", delete_candidate, name="delete_candidate"),
     path("candidates/<cid>/comments/all", all_candidate_comments, name="all_comments"),
     path("candidates/<cid>/comments/create", create_candidate_comment, name="create_comment"),
-    path("comments/<hash_id>/edit", edit_candidate_comment, name="edit_comment")
+    path("comments/<hash_id>/edit", edit_candidate_comment, name="edit_comment"),
+    path("comments/<hash_id>/delete", delete_candidate_comment, name="delete_comment")
 ]
