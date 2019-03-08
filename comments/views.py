@@ -87,7 +87,6 @@ def delete_candidate(request, cid):
         if request.method == 'POST':
             candidate.delete()
             data["deleted"] = True
-            new_candidates = Candidate.objects.filter(creator=request.user).order_by("name")
         else:
             data["html_form"] = render_to_string("candidates/includes/delete_form.html", {"candidate": candidate}, request)
         return JsonResponse(data)
