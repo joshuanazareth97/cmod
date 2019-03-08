@@ -98,8 +98,9 @@
         success: function(data) {
           $(btn.attr("data-form-target")).html(data.html_form)
           M.updateTextFields()
+          M.textareaAutoResize($('.materialize-textarea'));
           var elems = document.querySelectorAll('select');
-
+          $("#comment-list").on('click', ".js-comment-edit-close-btn", reload)
           if(elems.length > 0)
             var instances = M.FormSelect.init(elems);
 
