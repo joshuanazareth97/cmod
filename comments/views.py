@@ -132,7 +132,7 @@ def create_candidate_comment(request, cid):
 
 @login_required
 def edit_candidate_comment(request, hash_id):
-    comment = get_object_or_404(Comment, hash=hash_id)
+    comment = get_object_or_404(Comment, hash=hash_id, author=request.user)
     data = {}
     if request.method == 'POST':
         form = CommentForm(request.POST, instance=comment)
