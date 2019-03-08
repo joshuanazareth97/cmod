@@ -65,7 +65,8 @@
   $(function () {
     $(".js-comment-create-btn").click(loadForm);
     $("#form-modal").on('submit', ".js-comment-create-form", submitFormCallback);
-    $("#comment-list").on('click', ".js-comment-edit-btn", loadForm)
+    $("#comment-list").on('click', ".js-comment-edit-btn", loadForm);
+    $("#comment-list").on('submit', ".js-comment-edit-form", submitFormCallback);
   });
   </script>
 {% endblock javascript%}
