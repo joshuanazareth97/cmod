@@ -66,11 +66,32 @@
 {% block javascript %}
   {{block.super}}
   <script type="text/javascript">
+  var deleteComment = function(event) {
+    var confirmDelete = true
+    comment = $(this).parents("li.collection-item").detach()
+    M.toast({
+      html: "<p>Comment Deleted <button class=\"btn-flat\"><b>Undo</b></button></p>",
+      completeCallback: function(event) {
+        if(confirmDelete)
+          console.log(comment.attr("id") + " deleted")
+          $.ajax({
+
+          })
+      }
+    });
+    $('body').on('click', "#toast-container button", function() {
+        console.log(comment.attr("id") + " not deleted")
+        confirmDelete = false
+        M.Toast.getInstance(document.querySelector('.toast')).dismiss();
+        reload(event, "#comment-list ul")
+    })
+  }
   $(function () {
     $(".js-comment-create-btn").click(loadForm);
     $("#form-modal").on('submit', ".js-comment-create-form", submitFormCallback);
     $("#comment-list").on('click', ".js-comment-edit-btn", loadForm);
     $("#comment-list").on('submit', ".js-comment-edit-form", submitFormCallback);
+    $("#comment-list").on('click', ".js-comment-delete-btn", deleteComment);
   });
   </script>
 {% endblock javascript%}
