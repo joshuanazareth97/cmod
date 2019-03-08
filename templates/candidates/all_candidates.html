@@ -63,7 +63,7 @@
           datatype: 'json',
           success: function(data) {
             if(data.deleted) {
-              reload("#candidate-list")
+              reload(event, "#candidate-list")
             }
             else {
               alert("Some error occurred. Please try again.")

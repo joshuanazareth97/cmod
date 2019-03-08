@@ -124,7 +124,7 @@
         data: form.serialize(),
         success: function(data) {
           if(data.is_valid) {
-            reload(container_selector)
+            reload(event, container_selector)
             // $("#comment-list ul").html(data.html_comment_list)
             modal_instance.close()
           }
