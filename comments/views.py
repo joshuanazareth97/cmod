@@ -146,3 +146,18 @@ def edit_candidate_comment(request, hash_id):
         form = CommentForm(instance=comment)
         data["html_form"] = render_to_string("comments/includes/edit_comment_form.html", {"candidate": comment.candidate, "form": form}, request)
     return JsonResponse(data)
+
+
+@login_required
+def delete_candidate_comment(request, hash_id):
+    comment = get_object_or_404(Comment, hash=hash_id, author=request.user)
+    data = {}
+    if request.is_ajax() and request.method == 'POST':
+        try:
+            comment.delete()
+            data["deleted"] = True
+        except:
+            data["deleted"] = False
+        return JsonResponse(data)
+    else:
+        raise PermissionDenied("Cannot access this endpoint using GET or without AJAX.")
