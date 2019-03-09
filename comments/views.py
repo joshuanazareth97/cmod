@@ -174,5 +174,6 @@ def star_candidate_comment(request, hash_id):
             data["toggled"] = True
         except:
             data["toggled"] = False
+        return JsonResponse(data)
     else:
         raise  PermissionDenied("Cannot access this endpoint using GET or without AJAX.")
