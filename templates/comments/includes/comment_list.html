@@ -21,8 +21,12 @@
         <button data-url="{% url 'edit_comment' comment.hash %}" class="btn-flat js-comment-edit-btn" data-form-target="#{{comment.hash}} .card" js-suppress-modal>
           <i class="material-icons">edit</i>
         </button>
-        <button href="" class="btn-flat js-comment-star-btn"><i class="material-icons">star</i></button>
-        <button class="btn-flat js-comment-delete-btn" data-url="{% url 'delete_comment' comment.hash %}"><i class="material-icons">delete</i></button>
+        <button href="" class="btn-flat js-comment-star-btn {% if comment.starred %}checked{% endif %}" data-url="{% url 'star_comment' comment.hash %}">
+          <i class="material-icons">star</i>
+        </button>
+        <button class="btn-flat js-comment-delete-btn" data-url="{% url 'delete_comment' comment.hash %}">
+          <i class="material-icons">delete</i>
+        </button>
       </div>
     </div>
   </li>
