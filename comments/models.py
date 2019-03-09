@@ -1,5 +1,6 @@
 import uuid
 
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
@@ -8,10 +9,16 @@ def gen_doc_filepath(instance, filename):
 
 class TimeStammpedModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+    modified = models.DateTimeField()
 
     class Meta:
         abstract = True
+
+    def save(self, *args, **kwargs):
+        if not kwargs.pop("skip_update_timestamp", False):
+            self.modified = timezone.now()
+        super(TimeStammpedModel, self).save(*args, **kwargs)
+
 
 class Candidate(models.Model):
     name = models.CharField(max_length=200)
