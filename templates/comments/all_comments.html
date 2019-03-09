@@ -66,6 +66,26 @@
 {% block javascript %}
   {{block.super}}
   <script type="text/javascript">
+  var starComment = function(event) {
+    btn = $(this)
+    $.ajax({
+      url: btn.attr('data-url'),
+      method: "post",
+      success: function(data) {
+        if(data.toggled)
+          reload(event, "#comment-list ul")
+        else
+          M.toast({
+            html: "<p>Some error occured please reload and try again.</p>"
+          })
+      },
+      error: function(data) {
+        M.toast({
+          html: "<p>Some error occured please reload and try again.</p>"
+        })
+      }
+    })
+  }
   var deleteComment = function(event) {
     var confirmDelete = true
     var btn = $(this)
