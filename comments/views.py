@@ -161,3 +161,18 @@ def delete_candidate_comment(request, hash_id):
         return JsonResponse(data)
     else:
         raise PermissionDenied("Cannot access this endpoint using GET or without AJAX.")
+
+
+@login_required
+def star_candidate_comment(request, hash_id):
+    comment = get_object_or_404(Comment,  hash=hash_id, author=request.user)
+    data = {}
+    if request.is_ajax() and request.method == 'POST':
+        comment.starred = not comment.starred
+        try:
+            comment.save()
+            data["toggled"] = True
+        except:
+            data["toggled"] = False
+    else:
+        raise  PermissionDenied("Cannot access this endpoint using GET or without AJAX.")
