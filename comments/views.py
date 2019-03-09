@@ -170,7 +170,7 @@ def star_candidate_comment(request, hash_id):
     if request.is_ajax() and request.method == 'POST':
         comment.starred = not comment.starred
         try:
-            comment.save()
+            comment.save(skip_update_timestamp=True)
             data["toggled"] = True
         except:
             data["toggled"] = False
