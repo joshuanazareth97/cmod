@@ -1,11 +1,12 @@
 from django.urls import path
-from .views import (homepage, all_candidates, create_candidate, edit_candidate,
+from .views import (homepage, search, all_candidates, create_candidate, edit_candidate,
     delete_candidate, all_candidate_comments, create_candidate_comment, edit_candidate_comment,
     star_candidate_comment, delete_candidate_comment)
 
 
 urlpatterns = [
     path("", homepage, name="home"),
+    path("search", search, name="search"),
     path("candidates/all", all_candidates, name="all_candidates"),
     path("candidates/create", create_candidate, name="create_candidate"),
     path("candidates/<cid>/edit", edit_candidate, name="edit_candidate"),
