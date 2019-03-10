@@ -13,9 +13,10 @@ from .forms import CandidateForm, CommentForm
 
 @login_required
 def homepage(request):
+    recent_candidates = request.user.candidates.all().order_by("-modified")
     context = {
         "user": request.user,
-
+        "candidates": recent_candidates[:5]
     }
     return render(request, "homepage.html", context)
 
