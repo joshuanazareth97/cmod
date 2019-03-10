@@ -20,7 +20,7 @@ class TimeStammpedModel(models.Model):
         super(TimeStammpedModel, self).save(*args, **kwargs)
 
 
-class Candidate(models.Model):
+class Candidate(TimeStammpedModel):
     name = models.CharField(max_length=200)
     cid = models.CharField("Candidate ID", max_length=20)
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="candidates")
