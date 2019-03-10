@@ -1,4 +1,4 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
 from django.template.loader import render_to_string
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -19,6 +19,18 @@ def homepage(request):
         "candidates": recent_candidates[:5]
     }
     return render(request, "homepage.html", context)
+
+@login_required
+def search(request):
+    if request.is_ajax() and request.method == 'GET':
+        try:
+            search_term = request.GET["search_term"]
+            print(search_term)
+            return JsonResponse({"results":"test string"})
+        except KeyError:
+            return HttpResponseBadRequest("Cannot access endpoint without a search term.")
+    else:
+            raise PermissionError("Cannot access this endpoint wihout AJAX, or through POST")
 
 @login_required
 def all_candidates(request):
