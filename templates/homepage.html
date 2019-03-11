@@ -32,10 +32,12 @@
       <div class="col s12 l8">
         <div class="input-field">
           <i class="prefix material-icons">search</i>
-          <input type="text" name="search" maxlength="20" class="form_input validate" id="search-bar">
+          <input type="text" name="search" maxlength="20" class="autocomplete" id="search-bar"
+          data-url="{% url 'search' %}" autocomplete="off" data-target="search-dropdown">
           <label for="search-bar">Search for a candidate</label>
           <span class="helper-text"></span>
         </div>
+        <ul class="collection d-none" id="search-dropdown"></ul>
         <div class="section" id="recent-candidates">
           <h5>Recently Modified Candidates</h5>
           <div class="divider"></div>
