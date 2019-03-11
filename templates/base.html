@@ -147,7 +147,11 @@
       var modal_elem = document.querySelector('.modal');
       modal_instance = M.Modal.init(modal_elem);
       var dropdown_elem = document.querySelectorAll('.dropdown-trigger')
-      var dropdown_instance = M.Dropdown.init(dropdown_elem, {hover: true, beloworigin: true})
+      var dropdown_instance = M.Dropdown.init(dropdown_elem, {
+        hover: true,
+        coverTrigger: false,
+        constrainWidth: false
+      })
       $(".dropdown-trigger").hover(function(){
         $("#"+$(this).attr("data-target")).css({'top':'64px'})
       });
