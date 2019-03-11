@@ -4,7 +4,18 @@
 {% block css %}
   {{ block.super }}
   <style>
-
+    .d-none {
+      display: none;
+    }
+    .d-block {
+      display: block;
+    }
+    #search-dropdown {
+      margin-left: 3rem;
+    }
+    #search-dropdown .active * {
+      color: white;
+    }
     @media screen and (min-width: 992px) {
       #sidebar {
         text-align: right;
