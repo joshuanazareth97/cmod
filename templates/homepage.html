@@ -91,4 +91,83 @@
 
 {% block javascript %}
   {{ block.super }}
+  <script type="text/javascript">
+    $(function() {
+      $("#search-bar").focus(function() {
+        var elem = $(this);
+        var search_request
+        var current_ndx = null;
+        var list_items
+        console.log(current_ndx)
+        elem.unbind("keyup").keyup(function(event){
+          switch(event.which) {
+            case 40:
+              if(list_items) {
+                list_items.each(function(index){
+                  $(this).removeClass("active")
+                })
+                current_ndx = current_ndx == null ? 0 : (current_ndx < list_items.length-1 ? current_ndx+1 : 0)
+                list_items.eq(current_ndx).addClass("active")
+              }
+              break
+
+            case 38:
+              if(list_items) {
+                list_items.each(function(index){
+                  $(this).removeClass("active")
+                })
+                current_ndx = current_ndx == null ? list_items.length-1 : (current_ndx > 0 ? current_ndx-1 : list_items.length-1)
+                list_items.eq(current_ndx).addClass("active")
+              }
+              break
+
+            case 13:
+              if(list_items && current_ndx != null) {
+                console.log(list_items.eq(current_ndx).children("a").attr('href'))
+                var w = window.open(window.location.href.slice(0,-1)+list_items.eq(current_ndx).children("a").attr('href'))
+              }
+              break
+
+            default:
+              current_ndx = null
+              if(search_request) {
+                clearTimeout(search_request)
+                search_request = null
+              }
+              var container = $("#"+elem.attr("data-target"))
+              var search_term = $(this).val()
+              console.log(event.which)
+              if(search_term != ""){
+                search_request = setTimeout(function () {
+                  $.ajax({
+                    url: elem.attr("data-url"),
+                    data: {
+                      search_term: search_term
+                    },
+                    method: 'get',
+                    success: function(data) {
+                      container.html(data.result)
+                      container.removeClass("d-none")
+                      container.addClass("d-block")
+                      list_items = container.children("li")
+                      // console.log(list_items);
+                    }
+                  })
+                }, 300);
+              }
+              else {
+                container.removeClass("d-block")
+                container.addClass("d-none")
+              }
+              break
+          }
+        })
+      })
+      $("#search-bar").blur(function() {
+        $("#search-dropdown").empty();
+        $("#search-dropdown").addClass("d-none")
+        $("#search-dropdown").removeClass("d-block")
+      })
+    });
+  </script>
 {% endblock javascript %}
