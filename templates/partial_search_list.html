@@ -1,0 +1,8 @@
+{% for candidate in candidates  %}
+  <li class="collection-item">
+    <a href="{% url 'all_comments' candidate.cid %}">
+      {{candidate.name}}
+      <p class="secondary">{{candidate.cid}}</p>
+    </a>
+  </li>
+{% endfor %}
