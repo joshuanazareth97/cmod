@@ -122,9 +122,10 @@
         }
       }
     });
-    $('body').on('click', "#toast-container button", function() {
+    $('body').on('click', "."+class_name+" button", function() {
+        console.log("undo")
         confirmDelete = false
-        M.Toast.getInstance(document.querySelector('.toast')).dismiss();
+        M.Toast.getInstance(document.querySelector('.'+class_name)).dismiss();
         reload(event, "#comment-list ul")
     })
   }
