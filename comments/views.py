@@ -3,7 +3,7 @@ from django.template.loader import render_to_string
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-
+from django.db.models import Q
 from django.core.exceptions import PermissionDenied
 from django.db import IntegrityError
 
@@ -25,10 +25,15 @@ def search(request):
     if request.is_ajax() and request.method == 'GET':
         try:
             search_term = request.GET["search_term"]
-            print(search_term)
-            return JsonResponse({"results":"test string"})
         except KeyError:
             return HttpResponseBadRequest("Cannot access endpoint without a search term.")
+        print(search_term)
+        candidates = request.user.candidates.filter(Q(name__contains=search_term)|Q(cid__contains=search_term))
+        data = {
+            "result": render_to_string("partial_search_list.html", {"candidates": candidates})
+        }
+        print(data["result"])
+        return JsonResponse(data)
     else:
             raise PermissionError("Cannot access this endpoint wihout AJAX, or through POST")
 
