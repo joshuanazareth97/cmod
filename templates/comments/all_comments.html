@@ -98,10 +98,15 @@
   var deleteComment = function(event) {
     var confirmDelete = true
     var btn = $(this)
+    $(".js-comment-delete-btn").attr("disabled", "true")
     var comment = btn.parents("li.collection-item").detach()
+    var class_name = "toast_"+comment.attr("id")
     M.toast({
       html: "<p>Comment Deleted <button class=\"btn-flat\"><b>Undo</b></button></p>",
+      classes: class_name,
+      displayLength: 2000,
       completeCallback: function(event) {
+        $(".js-comment-delete-btn").removeAttr("disabled")
         if(confirmDelete)
         {
           $.ajax({
