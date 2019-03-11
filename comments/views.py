@@ -128,42 +128,48 @@ def all_candidate_comments(request, cid):
 
 @login_required
 def create_candidate_comment(request, cid):
-    candidate = get_object_or_404(Candidate, cid=cid, creator = request.user)
-    data = {}
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            data["is_valid"] = True
-            comment = form.save(commit=False)
-            comment.candidate = candidate
-            comment.author = request.user
-            comment.save()
-            comments = candidate.candidate_comments.all().order_by("-created")
-            data["html_comment_list"] = render_to_string("comments/includes/comment_list.html",{"comments":comments})
+    if request.is_ajax():
+        candidate = get_object_or_404(Candidate, cid=cid, creator = request.user)
+        data = {}
+        if request.method == 'POST':
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                data["is_valid"] = True
+                comment = form.save(commit=False)
+                comment.candidate = candidate
+                comment.author = request.user
+                comment.save()
+                comments = candidate.candidate_comments.all().order_by("-created")
+                data["html_comment_list"] = render_to_string("comments/includes/comment_list.html",{"comments":comments})
+            else:
+                data["is_valid"] = False
         else:
-            data["is_valid"] = False
+            form = CommentForm()
+        data["html_form"] = render_to_string("comments/includes/create_comment_form.html", {"candidate": candidate, "form": form}, request)
+        return JsonResponse(data)
     else:
-        form = CommentForm()
-    data["html_form"] = render_to_string("comments/includes/create_comment_form.html", {"candidate": candidate, "form": form}, request)
-    return JsonResponse(data)
+        raise PermissionError("Cannot access this endpoint in this manner.")
 
 
 @login_required
 def edit_candidate_comment(request, hash_id):
-    comment = get_object_or_404(Comment, hash=hash_id, author=request.user)
-    data = {}
-    if request.method == 'POST':
-        form = CommentForm(request.POST, instance=comment)
-        if form.is_valid():
-            data["is_valid"] = True
-            form.save()
+    if request.is_ajax():
+        comment = get_object_or_404(Comment, hash=hash_id, author=request.user)
+        data = {}
+        if request.method == 'POST':
+            form = CommentForm(request.POST, instance=comment)
+            if form.is_valid():
+                data["is_valid"] = True
+                form.save()
+            else:
+                data["is_valid"] = False
+                data["html_form"] = render_to_string("comments/includes/edit_comment_form.html", {"candidate": comment.candidate, "form": form}, request)
         else:
-            data["is_valid"] = False
+            form = CommentForm(instance=comment)
             data["html_form"] = render_to_string("comments/includes/edit_comment_form.html", {"candidate": comment.candidate, "form": form}, request)
+        return JsonResponse(data)
     else:
-        form = CommentForm(instance=comment)
-        data["html_form"] = render_to_string("comments/includes/edit_comment_form.html", {"candidate": comment.candidate, "form": form}, request)
-    return JsonResponse(data)
+        raise PermissionError("Cannot access this endpoint in this manner.")
 
 
 @login_required
