@@ -38,9 +38,7 @@ CMOD
   Check out your most recent actions, search for candidates by name or ID, see upcoming reminders and recently uploaded documents (coming soon), and more!
 
   - ### Add, Edit and Delete candidates
-  <img src="screenshots/add_candidate.jpg" width="30%">
-  <img src="screenshots/edit_candidate.jpg" width="30%">
-  <img src="screenshots/delete_candidate.jpg" width="30%">
+  <img src="screenshots/add_candidate.jpg" width="30%"> <img src="screenshots/edit_candidate.jpg" width="30%"> <img src="screenshots/delete_candidate.jpg" width="30%">
 
   Add Candidates (Level 1 items) with names, ID and optional designations.
 
@@ -56,4 +54,3 @@ CMOD
   Edit, star or delete comments in place.
 
   <img src="screenshots/edit_comment.jpg">
-  
