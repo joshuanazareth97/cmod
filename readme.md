@@ -12,13 +12,13 @@
 ## Quick Start
 
   1. Clone the repository
-    > `git clone https://github.com/joshuanazareth97/cmod`
+    `git clone https://github.com/joshuanazareth97/cmod`
   2. Change working directory to repository
-  > `cd cmod`
+    `cd cmod`
   3. Install the requirements
-    > `pip install requirements.txt`
+    `pip install requirements.txt`
   4. Run the development server
-    > `python manage.py runserver`
+    `python manage.py runserver`
 
 
 ## To Do:
