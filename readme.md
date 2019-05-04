@@ -1,4 +1,6 @@
-# CMOD
+CMOD
+---------------------
+
 ( Comments on Maritime Officers Database )
 
 ## Introduction
@@ -39,5 +41,5 @@
 
 
   - ### Comments for each candidate
-  * Choose from the dropdown to select the type of comment you want, `notes`, `briefings`, or `evaluations`, and add a comment with text.
-  * Edit, star or delete comments in place.
+  Choose from the dropdown to select the type of comment you want, `notes`, `briefings`, or `evaluations`, and add a comment with text.
+  Edit, star or delete comments in place.
